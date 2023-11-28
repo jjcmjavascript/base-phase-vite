@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [eslintPlugin()],
   resolve: {
     alias: {
+      '@cards': path.resolve(__dirname, 'src/assets/cards'),
       '@scenes': path.resolve(__dirname, 'src/scenes'),
       '@configs': path.resolve(__dirname, 'src/configs')
     }

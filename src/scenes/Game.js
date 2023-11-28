@@ -1,36 +1,35 @@
 import Phaser from 'phaser'
+import CardOne from '@cards/card-1.jpg'
+import { Hina } from '../classes/cards'
 
-export default class Demo extends Phaser.Scene {
+const creature = new Hina({
+  life: 1,
+  attack: 2,
+  generation: 2,
+  agression: 1,
+  cost: 1,
+  name: 'kk',
+  imageUrl: CardOne
+})
+
+console.log(creature)
+export default class Game extends Phaser.Scene {
   constructor () {
     super('GameScene')
-    this.angle = 4
+    this.angle = 2
+    this.card = null
   }
 
   preload () {
-    this.load.image('ship', 'assets/ship_L.png')
+    this.load.image('cardOne', creature.imageUrl)
   }
 
   create () {
-    this.ship = this.physics.add.sprite(400, 70, 'ship')
-
-    this.cursor = this.input.keyboard.createCursorKeys()
+    this.card = this.add.image(200, 200, 'cardOne').setScale(0.5, 0.5)
+    this.add.text(75, 0, [creature.name])
   }
 
   update () {
-    if (this.cursor.right.isDown) {
-      this.ship.angle += this.angle
-    }
-    if (this.cursor.left.isDown) {
-      this.ship.angle -= this.angle
-    }
 
-    const velocityX = Math.cos(this.ship.rotation - 1.5)
-    const velocityY = Math.sin(this.ship.rotation - 1.5)
-
-    if (this.cursor.up.isDown) {
-      this.ship.setVelocity(velocityX * 100, velocityY * 100)
-    } else {
-      this.ship.setVelocity(0, 0)
-    }
   }
 }
