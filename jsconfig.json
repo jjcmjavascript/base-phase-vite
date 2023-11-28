@@ -3,7 +3,8 @@
     "baseUrl": "./",
     "paths": {
       "@scenes/*": ["src/scenes/*"],
-      "@configs/*": ["src/configs/*"]
+      "@configs/*": ["src/configs/*"],
+      "@classes/*": ["src/classes/*"],
     }
   },
   "exclude": ["node_modules", "dist"]

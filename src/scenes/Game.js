@@ -1,18 +1,8 @@
 import Phaser from 'phaser'
-import CardOne from '@cards/card-1.jpg'
-import { Hina } from '../classes/cards'
+import CardFactory from '@classes/CardFactory'
 
-const creature = new Hina({
-  life: 1,
-  attack: 2,
-  generation: 2,
-  agression: 1,
-  cost: 1,
-  name: 'kk',
-  imageUrl: CardOne
-})
+const hina = CardFactory.getCardInstance({ type: 'creature', name: 'hina' })
 
-console.log(creature)
 export default class Game extends Phaser.Scene {
   constructor () {
     super('GameScene')
@@ -21,12 +11,12 @@ export default class Game extends Phaser.Scene {
   }
 
   preload () {
-    this.load.image('cardOne', creature.imageUrl)
+    this.load.image('cardOne', hina.imageUrl)
   }
 
   create () {
     this.card = this.add.image(200, 200, 'cardOne').setScale(0.5, 0.5)
-    this.add.text(75, 0, [creature.name])
+    this.add.text(75, 0, [hina.name])
   }
 
   update () {

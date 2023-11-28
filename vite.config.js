@@ -8,7 +8,8 @@ export default defineConfig({
     alias: {
       '@cards': path.resolve(__dirname, 'src/assets/cards'),
       '@scenes': path.resolve(__dirname, 'src/scenes'),
-      '@configs': path.resolve(__dirname, 'src/configs')
+      '@configs': path.resolve(__dirname, 'src/configs'),
+      '@classes': path.resolve(__dirname, 'src/classes')
     }
   }
 })
