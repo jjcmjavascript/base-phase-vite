@@ -7,7 +7,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@scenes': path.resolve(__dirname, 'src/scenes'),
-      '@configs': path.resolve(__dirname, 'src/configs'),
+      '@configs': path.resolve(__dirname, 'src/configs')
     }
   }
 })
