@@ -1,5 +1,5 @@
 import Creature from './Creature'
-import creatureSchemes from '../helpers/creatureSchemes'
+import creatureSchemes from '../utils/creatureSchemes'
 
 class CardFactory {
   static getCardInstance ({ type, name }) {

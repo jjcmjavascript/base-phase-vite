@@ -5,6 +5,7 @@
       "@scenes/*": ["src/scenes/*"],
       "@configs/*": ["src/configs/*"],
       "@classes/*": ["src/classes/*"],
+      "@utils/*": ["src/utils/*"],
     }
   },
   "exclude": ["node_modules", "dist"]

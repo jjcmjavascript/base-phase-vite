@@ -9,7 +9,8 @@ export default defineConfig({
       '@cards': path.resolve(__dirname, 'src/assets/cards'),
       '@scenes': path.resolve(__dirname, 'src/scenes'),
       '@configs': path.resolve(__dirname, 'src/configs'),
-      '@classes': path.resolve(__dirname, 'src/classes')
+      '@classes': path.resolve(__dirname, 'src/classes'),
+      '@utils': path.resolve(__dirname, 'src/utils')
     }
   }
 })

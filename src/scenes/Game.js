@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 import CardFactory from '@classes/CardFactory'
+import CardEffectFactory from '@classes/CardEffectFactory'
 
 const hina = CardFactory.getCardInstance({ type: 'creature', name: 'hina' })
 
@@ -11,11 +12,12 @@ export default class Game extends Phaser.Scene {
   }
 
   preload () {
-    this.load.image('cardOne', hina.imageUrl)
+    hina.load({ scene: this })
   }
 
   create () {
-    this.card = this.add.image(200, 200, 'cardOne').setScale(0.5, 0.5)
+    hina.render({ scene: this }).draggable({ scene: this })
+
     this.add.text(75, 0, [hina.name])
   }
 
