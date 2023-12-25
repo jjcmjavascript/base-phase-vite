@@ -6,7 +6,7 @@ const hina = {
   generation: 2,
   agression: 1,
   cost: 1,
-  name: 'kk',
+  name: 'new gate',
   imageUrl: hinaImage
 }
 

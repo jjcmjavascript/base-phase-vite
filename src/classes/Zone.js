@@ -1,5 +1,5 @@
 class Zone {
-  constructor () {
+  constructor ({ getScreenSize }) {
     this.creatures = []
     this.items = []
     this.deck = null
@@ -10,37 +10,54 @@ class Zone {
     this.discardPile = null
     this.phCreatureZone = null
     this.phItemZone = null
-    this.x = 1280 * 0.05
-    this.y = 780 / 2
-    this.width = 1280 * 0.9
-    this.height = 150
+
+    this.screenWidth = null
+    this.screenHeight = null
+    this.zoneWidth = null
+    this.zoneHeight = null
+    this.cardHeight = null
+    this.cardWidth = null
+    this.x = 0
+    this.y = 0
+    this.getScreenSize = getScreenSize
   }
 
-  render ({ scene, x = this.x, y = this.y, width = this.width, height = this.height }) {
-    this.phCreatureZone = scene.add.zone(x, y, width, height).setRectangleDropZone(width, height)
-    this.phItemZone = scene.add.zone(x, y, width, height).setRectangleDropZone(width, height)
+  setDimensions ({ scene }) {
+    const textSize = this.getScreenSize.getScreenSizeInText()
+    const { width, height } = scene.game.canvas
+    const sizes = {
+      xs: { cardHeight: 120, cardWidth: 80 },
+      sm: { cardHeight: 120, cardWidth: 80 },
+      md: { cardHeight: 120, cardWidth: 80 },
+      lg: { cardHeight: 120, cardWidth: 80 }
+    }
+
+    this.screenWidth = width
+    this.screenHeight = height
+    this.zoneWidth = width * 0.5
+    this.zoneHeight = sizes[textSize].cardHeight
+    this.cardHeight = sizes[textSize].cardHeight
+    this.cardWidth = sizes[textSize].cardWidth
+    this.x = this.screenWidth * 0.31
+    this.y = this.screenHeight * 0.6
+  }
+
+  render ({ scene }) {
+    this.setDimensions({ scene })
+    this.phCreatureZone = scene.add.zone(this.x, this.y, this.zoneWidth, this.zoneHeight).setRectangleDropZone(this.zoneWidth, this.cardHeight)
+    this.phItemZone = scene.add.zone(this.x, this.y + this.cardHeight, this.zoneWidth, this.zoneHeight).setRectangleDropZone(this.zoneWidth, this.cardHeight)
 
     this.phCreatureZone.setData({ cards: 0 })
     this.phItemZone.setData({ cards: 0 })
 
     const dropZoneOutline = scene.add.graphics()
-    const widthPerCard = this.phCreatureZone.input.hitArea.width / 6
+    dropZoneOutline.lineStyle(1, 0xff69b4)
 
-    dropZoneOutline.lineStyle(2, 0xff69b4)
-    dropZoneOutline.strokeRect(this.phCreatureZone.x, this.phCreatureZone.y, widthPerCard, this.phCreatureZone.input.hitArea.height)
-    dropZoneOutline.strokeRect(this.phCreatureZone.x + widthPerCard * 1, this.phCreatureZone.y, widthPerCard, this.phCreatureZone.input.hitArea.height)
-    dropZoneOutline.strokeRect(this.phCreatureZone.x + widthPerCard * 2, this.phCreatureZone.y, widthPerCard, this.phCreatureZone.input.hitArea.height)
-    dropZoneOutline.strokeRect(this.phCreatureZone.x + widthPerCard * 3, this.phCreatureZone.y, widthPerCard, this.phCreatureZone.input.hitArea.height)
-    dropZoneOutline.strokeRect(this.phCreatureZone.x + widthPerCard * 4, this.phCreatureZone.y, widthPerCard, this.phCreatureZone.input.hitArea.height)
-    dropZoneOutline.strokeRect(this.phCreatureZone.x + widthPerCard * 5, this.phCreatureZone.y, widthPerCard, this.phCreatureZone.input.hitArea.height)
-
-    dropZoneOutline.lineStyle(2, 0xff69b4)
-    dropZoneOutline.strokeRect(this.phItemZone.x, this.phItemZone.y + height, widthPerCard, this.phItemZone.input.hitArea.height)
-    dropZoneOutline.strokeRect(this.phItemZone.x + widthPerCard * 1, this.phItemZone.y + height, widthPerCard, this.phItemZone.input.hitArea.height)
-    dropZoneOutline.strokeRect(this.phItemZone.x + widthPerCard * 2, this.phItemZone.y + height, widthPerCard, this.phItemZone.input.hitArea.height)
-    dropZoneOutline.strokeRect(this.phItemZone.x + widthPerCard * 3, this.phItemZone.y + height, widthPerCard, this.phItemZone.input.hitArea.height)
-    dropZoneOutline.strokeRect(this.phItemZone.x + widthPerCard * 4, this.phItemZone.y + height, widthPerCard, this.phItemZone.input.hitArea.height)
-    dropZoneOutline.strokeRect(this.phItemZone.x + widthPerCard * 5, this.phItemZone.y + height, widthPerCard, this.phItemZone.input.hitArea.height)
+    dropZoneOutline.strokeRect(this.phCreatureZone.x, this.phCreatureZone.y, this.cardWidth * 6, this.phCreatureZone.input.hitArea.height * 2)
+    for (let i = 0; i < 6; i++) {
+      dropZoneOutline.strokeRect(this.phCreatureZone.x + this.cardWidth * i, this.phCreatureZone.y, this.cardWidth, this.phCreatureZone.input.hitArea.height)
+      dropZoneOutline.strokeRect(this.phItemZone.x + this.cardWidth * i, this.phItemZone.y, this.cardWidth, this.phItemZone.input.hitArea.height)
+    }
 
     return this
   }
