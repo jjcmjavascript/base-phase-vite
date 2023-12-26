@@ -38,7 +38,7 @@ class Zone {
     this.zoneHeight = sizes[textSize].cardHeight
     this.cardHeight = sizes[textSize].cardHeight
     this.cardWidth = sizes[textSize].cardWidth
-    this.x = this.screenWidth * 0.3 + this.zoneWidth * 0.15
+    this.x = this.screenWidth * 0.3 + this.zoneWidth * 0.2
     this.y = this.screenHeight * 0.6
   }
 
