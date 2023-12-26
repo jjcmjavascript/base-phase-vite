@@ -8,8 +8,8 @@ class Zone {
     this.resourcesPile = null
     this.usedResources = null
     this.discardPile = null
-    this.phCreatureZone = null
-    this.phItemZone = null
+    this.phCreatureZones = []
+    this.phItemZones = []
 
     this.screenWidth = null
     this.screenHeight = null
@@ -26,8 +26,8 @@ class Zone {
     const textSize = this.getScreenSize.getScreenSizeInText()
     const { width, height } = scene.game.canvas
     const sizes = {
-      xs: { cardHeight: 120, cardWidth: 80 },
-      sm: { cardHeight: 120, cardWidth: 80 },
+      xs: { cardHeight: 80, cardWidth: 60 },
+      sm: { cardHeight: 80, cardWidth: 60 },
       md: { cardHeight: 120, cardWidth: 80 },
       lg: { cardHeight: 120, cardWidth: 80 }
     }
@@ -38,26 +38,66 @@ class Zone {
     this.zoneHeight = sizes[textSize].cardHeight
     this.cardHeight = sizes[textSize].cardHeight
     this.cardWidth = sizes[textSize].cardWidth
-    this.x = this.screenWidth * 0.31
+    this.x = this.screenWidth * 0.3 + this.zoneWidth * 0.15
     this.y = this.screenHeight * 0.6
   }
 
   render ({ scene }) {
     this.setDimensions({ scene })
-    this.phCreatureZone = scene.add.zone(this.x, this.y, this.zoneWidth, this.zoneHeight).setRectangleDropZone(this.zoneWidth, this.cardHeight)
-    this.phItemZone = scene.add.zone(this.x, this.y + this.cardHeight, this.zoneWidth, this.zoneHeight).setRectangleDropZone(this.zoneWidth, this.cardHeight)
+    const numCuadros = 6
 
-    this.phCreatureZone.setData({ cards: 0 })
-    this.phItemZone.setData({ cards: 0 })
+    for (let i = 0; i < numCuadros; i++) {
+      const phZone = scene.add
+        .zone(
+          this.x + this.cardWidth * i,
+          this.y,
+          this.cardWidth,
+          this.cardHeight
+        )
+        .setRectangleDropZone(this.cardWidth, this.cardHeight)
 
+      phZone.setData({ cards: 0, type: 'creature' })
+
+      this.phCreatureZones.push(phZone)
+    }
+
+    for (let i = 0; i < numCuadros; i++) {
+      const phZone = scene.add
+        .zone(
+          this.x + this.cardWidth * i,
+          this.y + this.cardHeight + 6,
+          this.cardWidth,
+          this.cardHeight
+        )
+        .setRectangleDropZone(this.cardWidth, this.cardHeight)
+
+      phZone.setData({ cards: 0, type: 'item' })
+
+      this.phItemZones.push(phZone)
+    }
+
+    // Dibujar contornos para las zonas
     const dropZoneOutline = scene.add.graphics()
+
     dropZoneOutline.lineStyle(1, 0xff69b4)
 
-    dropZoneOutline.strokeRect(this.phCreatureZone.x, this.phCreatureZone.y, this.cardWidth * 6, this.phCreatureZone.input.hitArea.height * 2)
-    for (let i = 0; i < 6; i++) {
-      dropZoneOutline.strokeRect(this.phCreatureZone.x + this.cardWidth * i, this.phCreatureZone.y, this.cardWidth, this.phCreatureZone.input.hitArea.height)
-      dropZoneOutline.strokeRect(this.phItemZone.x + this.cardWidth * i, this.phItemZone.y, this.cardWidth, this.phItemZone.input.hitArea.height)
-    }
+    this.phCreatureZones.forEach((zone, index) => {
+      dropZoneOutline.strokeRect(
+        zone.x - this.cardWidth / 2 - 2,
+        zone.y - this.cardHeight / 2 - 2,
+        this.cardWidth,
+        this.cardHeight
+      )
+    })
+
+    this.phItemZones.forEach((zone, index) => {
+      dropZoneOutline.strokeRect(
+        zone.x - this.cardWidth / 2 - 2,
+        zone.y - this.cardHeight / 2 - 2,
+        this.cardWidth,
+        this.cardHeight
+      )
+    })
 
     return this
   }

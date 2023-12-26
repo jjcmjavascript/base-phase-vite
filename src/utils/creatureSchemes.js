@@ -6,8 +6,10 @@ const hina = {
   generation: 2,
   agression: 1,
   cost: 1,
+  text: 'this card cannot be destroyed',
   name: 'new gate',
-  imageUrl: hinaImage
+  imageUrl: hinaImage,
+  type: 'creature'
 }
 
 export default {
