@@ -82,21 +82,39 @@ class Zone {
     dropZoneOutline.lineStyle(1, 0xff69b4)
 
     this.phCreatureZones.forEach((zone, index) => {
-      dropZoneOutline.strokeRect(
-        zone.x - this.cardWidth / 2,
-        zone.y - this.cardHeight / 2,
-        this.cardWidth,
-        this.cardHeight
-      )
+      if (index === 0) {
+        dropZoneOutline.strokeRect(
+          zone.x - this.cardWidth,
+          zone.y - this.cardWidth / 2 - 2,
+          this.cardHeight,
+          this.cardWidth
+        )
+      } else {
+        dropZoneOutline.strokeRect(
+          zone.x - this.cardWidth / 2,
+          zone.y - this.cardHeight / 2,
+          this.cardWidth,
+          this.cardHeight
+        )
+      }
     })
 
     this.phItemZones.forEach((zone, index) => {
-      dropZoneOutline.strokeRect(
-        zone.x - this.cardWidth / 2,
-        zone.y - this.cardHeight / 2,
-        this.cardWidth,
-        this.cardHeight
-      )
+      if (index === 0) {
+        dropZoneOutline.strokeRect(
+          zone.x - this.cardWidth,
+          zone.y - this.cardWidth / 2 - 2,
+          this.cardHeight,
+          this.cardWidth
+        )
+      } else {
+        dropZoneOutline.strokeRect(
+          zone.x - this.cardWidth / 2,
+          zone.y - this.cardHeight / 2,
+          this.cardWidth,
+          this.cardHeight
+        )
+      }
     })
 
     return this

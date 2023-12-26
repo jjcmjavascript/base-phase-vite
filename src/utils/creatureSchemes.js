@@ -1,4 +1,4 @@
-import hinaImage from '@cards/card-1.jpg'
+import hinaImage from '@cards/card-1.png'
 
 const hina = {
   life: 1,
