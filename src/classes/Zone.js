@@ -65,7 +65,7 @@ class Zone {
       const phZone = scene.add
         .zone(
           this.x + this.cardWidth * i,
-          this.y + this.cardHeight + 6,
+          this.y + this.cardHeight + 8,
           this.cardWidth,
           this.cardHeight
         )
@@ -83,8 +83,8 @@ class Zone {
 
     this.phCreatureZones.forEach((zone, index) => {
       dropZoneOutline.strokeRect(
-        zone.x - this.cardWidth / 2 - 2,
-        zone.y - this.cardHeight / 2 - 2,
+        zone.x - this.cardWidth / 2,
+        zone.y - this.cardHeight / 2,
         this.cardWidth,
         this.cardHeight
       )
@@ -92,8 +92,8 @@ class Zone {
 
     this.phItemZones.forEach((zone, index) => {
       dropZoneOutline.strokeRect(
-        zone.x - this.cardWidth / 2 - 2,
-        zone.y - this.cardHeight / 2 - 2,
+        zone.x - this.cardWidth / 2,
+        zone.y - this.cardHeight / 2,
         this.cardWidth,
         this.cardHeight
       )

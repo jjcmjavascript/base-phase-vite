@@ -31,8 +31,8 @@ export default class Game extends Phaser.Scene {
     zone.render({ scene: this })
     descriptionZone.render({ scene: this })
     statusZone.render({ scene: this })
-    hina.render({ scene: this, x: 100, y: 100, width: 80, height: 120 }).draggable({ scene: this })
-    hina.render({ scene: this, x: 100, y: 100, width: 80, height: 120 }).draggable({ scene: this })
+    hina.render({ scene: this, x: 100, y: 100, width: 78, height: 118 }).draggable({ scene: this })
+    hina.render({ scene: this, x: 100, y: 100, width: 78, height: 118 }).draggable({ scene: this })
 
     this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
       gameObject.x = dragX
