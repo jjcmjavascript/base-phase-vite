@@ -1,3 +1,4 @@
+import CardZone from '@classes/CardZone'
 class Zone {
   constructor ({ getScreenSize }) {
     this.creatures = []
@@ -38,84 +39,23 @@ class Zone {
     this.zoneHeight = sizes[textSize].cardHeight
     this.cardHeight = sizes[textSize].cardHeight
     this.cardWidth = sizes[textSize].cardWidth
-    this.x = this.screenWidth * 0.3 + this.zoneWidth * 0.2
+    this.x = this.screenWidth * 0.26 + this.zoneWidth * 0.2
     this.y = this.screenHeight * 0.6
   }
 
   render ({ scene }) {
     this.setDimensions({ scene })
-    const numCuadros = 6
 
-    for (let i = 0; i < numCuadros; i++) {
-      const phZone = scene.add
-        .zone(
-          this.x + this.cardWidth * i,
-          this.y,
-          this.cardWidth,
-          this.cardHeight
-        )
-        .setRectangleDropZone(this.cardWidth, this.cardHeight)
+    const creaturesZone = new Array(6).fill(null).map((_, index) => new CardZone({
+      cardZoneId: index,
+      width: this.cardWidth,
+      height: this.cardHeight,
+      x: this.x + this.cardWidth * index,
+      y: this.y,
+      card: null
+    }))
 
-      phZone.setData({ cards: 0, type: 'creature' })
-
-      this.phCreatureZones.push(phZone)
-    }
-
-    for (let i = 0; i < numCuadros; i++) {
-      const phZone = scene.add
-        .zone(
-          this.x + this.cardWidth * i,
-          this.y + this.cardHeight + 8,
-          this.cardWidth,
-          this.cardHeight
-        )
-        .setRectangleDropZone(this.cardWidth, this.cardHeight)
-
-      phZone.setData({ cards: 0, type: 'item' })
-
-      this.phItemZones.push(phZone)
-    }
-
-    // Dibujar contornos para las zonas
-    const dropZoneOutline = scene.add.graphics()
-
-    dropZoneOutline.lineStyle(1, 0xff69b4)
-
-    this.phCreatureZones.forEach((zone, index) => {
-      if (index === 0) {
-        dropZoneOutline.strokeRect(
-          zone.x - this.cardWidth,
-          zone.y - this.cardWidth / 2 - 2,
-          this.cardHeight,
-          this.cardWidth
-        )
-      } else {
-        dropZoneOutline.strokeRect(
-          zone.x - this.cardWidth / 2,
-          zone.y - this.cardHeight / 2,
-          this.cardWidth,
-          this.cardHeight
-        )
-      }
-    })
-
-    this.phItemZones.forEach((zone, index) => {
-      if (index === 0) {
-        dropZoneOutline.strokeRect(
-          zone.x - this.cardWidth,
-          zone.y - this.cardWidth / 2 - 2,
-          this.cardHeight,
-          this.cardWidth
-        )
-      } else {
-        dropZoneOutline.strokeRect(
-          zone.x - this.cardWidth / 2,
-          zone.y - this.cardHeight / 2,
-          this.cardWidth,
-          this.cardHeight
-        )
-      }
-    })
+    creaturesZone.forEach(zone => zone.render({ scene }))
 
     return this
   }

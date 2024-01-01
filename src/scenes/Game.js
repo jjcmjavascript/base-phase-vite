@@ -51,17 +51,18 @@ export default class Game extends Phaser.Scene {
     })
 
     this.input.on('drop', function (pointer, gameObject, dropZone) {
-      if (dropZone) {
-        if (dropZone.data.values.cards.length === 1) return
+      if (!dropZone) return
 
-        if (dropZone.getData('type') === gameObject.getData('card').type) {
-          gameObject.setTint()
-          gameObject.x = dropZone.x
-          gameObject.y = dropZone.y
-          gameObject.disableInteractive()
-        } else {
-          self.backToOriginalPosition(gameObject)
-        }
+      if (
+        dropZone.getData('zoneObject').type === gameObject.getData('card').type) {
+        gameObject.setTint()
+        const { x, y, width, height } = dropZone.getData('zoneObject')
+        console.log('x', x, 'y', y, dropZone.getData('zoneObject'))
+        gameObject.x = x + width / 2
+        gameObject.y = y + height / 2
+        // gameObject.disableInteractive()
+      } else {
+        self.backToOriginalPosition(gameObject)
       }
     })
   }
