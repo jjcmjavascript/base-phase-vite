@@ -1,17 +1,17 @@
-import hinaImage from '@cards/card-1.png'
+import ishioImg from '@cards/card-1.png'
 
-const hina = {
+const ishio = {
   life: 1,
   attack: 2,
   generation: 2,
   agression: 1,
   cost: 1,
   text: 'this card cannot be destroyed',
-  name: 'new gate',
-  imageUrl: hinaImage,
+  name: 'ishio',
+  imageUrl: ishioImg,
   type: 'creature'
 }
 
 export default {
-  hina
+  ishio
 }

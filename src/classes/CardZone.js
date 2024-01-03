@@ -6,7 +6,7 @@ class CardZone {
     x,
     y,
     card = null,
-    type = 'creature'
+    type = ['creature']
   }) {
     this.type = type
     this.cardZoneId = cardZoneId
@@ -23,7 +23,7 @@ class CardZone {
       .setRectangleDropZone(this.width, this.height)
 
     this.phZone = phZone
-    phZone.setData({ zoneObject: this })
+    phZone.setData({ zoneObject: this, quantityOn: 0 })
 
     return this
   }

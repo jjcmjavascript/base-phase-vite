@@ -1,17 +1,6 @@
 import CardZone from '@classes/CardZone'
 class Zone {
   constructor ({ getScreenSize }) {
-    this.creatures = []
-    this.items = []
-    this.deck = null
-    this.hand = null
-    this.resources = null
-    this.resourcesPile = null
-    this.usedResources = null
-    this.discardPile = null
-    this.phCreatureZones = []
-    this.phItemZones = []
-
     this.screenWidth = null
     this.screenHeight = null
     this.zoneWidth = null
@@ -46,7 +35,7 @@ class Zone {
   render ({ scene }) {
     this.setDimensions({ scene })
 
-    const creaturesZone = new Array(6).fill(null).map((_, index) => new CardZone({
+    const mainCardZones = new Array(6).fill(null).map((_, index) => new CardZone({
       cardZoneId: index,
       width: this.cardWidth,
       height: this.cardHeight,
@@ -55,7 +44,19 @@ class Zone {
       card: null
     }))
 
-    creaturesZone.forEach(zone => zone.render({ scene }))
+    const secondaryCardZones = new Array(6).fill(null).map((_, index) => new CardZone({
+      cardZoneId: index,
+      width: this.cardWidth,
+      height: this.cardHeight,
+      x: this.x + this.cardWidth * index,
+      y: this.y + this.cardHeight + 5,
+      card: null,
+      type: ['instantaneous', 'weapon', 'consumable']
+    }))
+
+    mainCardZones.forEach(zone => zone.render({ scene }))
+
+    secondaryCardZones.forEach(zone => zone.render({ scene }))
 
     return this
   }
