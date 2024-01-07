@@ -25,10 +25,14 @@ class Card {
     return this
   }
 
+  setIteractive () {
+    this.phCard.setInteractive()
+    return this
+  }
+
   render ({ scene, x = this.x, y = this.y, width = this.width, height = this.height }) {
     this.phCard = scene.add.image(x, y, this.identifier)
       .setDisplaySize(width, height)
-      .setInteractive()
 
     this.phCard.setData({ card: this })
 
